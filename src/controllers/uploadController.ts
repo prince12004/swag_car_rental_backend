@@ -36,5 +36,5 @@ export const uploadImage = (req: AuthRequest, res: Response) => {
     }
     const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 5005}`;
     const url = `${backendUrl}/uploads/${req.file.filename}`;
-    res.json({ url, filename: req.file.filename });
+    return res.json({ url, filename: req.file.filename });
 };

@@ -20,7 +20,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
         };
         req.userId = decoded.id;
         req.userRole = decoded.role;
-        next();
+        return next();
     } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });
     }
@@ -30,5 +30,5 @@ export const adminMiddleware = (req: AuthRequest, res: Response, next: NextFunct
     if (req.userRole !== 'admin' && req.userRole !== 'super_admin') {
         return res.status(403).json({ message: 'Admin access required' });
     }
-    next();
+    return next();
 };

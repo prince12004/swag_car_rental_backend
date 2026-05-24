@@ -4,7 +4,7 @@ export const generateToken = (id: string, role: string, expiresIn?: string) => {
     return jwt.sign(
         { id, role },
         process.env.JWT_SECRET || 'secret',
-        { expiresIn: expiresIn || process.env.JWT_EXPIRE || '7d' }
+        { expiresIn: (expiresIn || process.env.JWT_EXPIRE || '7d') as any }
     );
 };
 

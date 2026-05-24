@@ -20,7 +20,7 @@ export const getAllBlogs = async (req: AuthRequest, res: Response) => {
         const blogs = await query.skip(skip).limit(Number(limit));
         const total = await Blog.countDocuments(filter);
 
-        res.status(200).json({
+        return res.status(200).json({
             count: blogs.length,
             total,
             page,
@@ -28,7 +28,7 @@ export const getAllBlogs = async (req: AuthRequest, res: Response) => {
             blogs,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -43,9 +43,9 @@ export const getBlogBySlug = async (req: AuthRequest, res: Response) => {
         blog.views += 1;
         await blog.save();
 
-        res.status(200).json(blog);
+        return res.status(200).json(blog);
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -64,12 +64,12 @@ export const createBlog = async (req: AuthRequest, res: Response) => {
             published: published || false,
         });
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Blog created successfully',
             blog,
         });
     } catch (error: any) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
@@ -84,12 +84,12 @@ export const updateBlog = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Blog not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Blog updated successfully',
             blog,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -101,11 +101,11 @@ export const deleteBlog = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Blog not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Blog deleted successfully',
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -120,12 +120,12 @@ export const publishBlog = async (req: AuthRequest, res: Response) => {
         blog.published = !blog.published;
         await blog.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: `Blog ${blog.published ? 'published' : 'unpublished'} successfully`,
             blog,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -140,11 +140,11 @@ export const likeBlog = async (req: AuthRequest, res: Response) => {
         blog.likes += 1;
         await blog.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Blog liked',
             blog,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };

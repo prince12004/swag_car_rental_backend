@@ -47,13 +47,13 @@ export const createBooking = async (req: AuthRequest, res: Response) => {
         booking.whatsappSent = whatsappSent;
         await booking.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Booking created successfully',
             booking,
             whatsappNotification: whatsappSent,
         });
     } catch (error: any) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
@@ -72,7 +72,7 @@ export const getAllBookings = async (req: AuthRequest, res: Response) => {
 
         const total = await Booking.countDocuments(filter);
 
-        res.status(200).json({
+        return res.status(200).json({
             count: bookings.length,
             total,
             page,
@@ -80,7 +80,7 @@ export const getAllBookings = async (req: AuthRequest, res: Response) => {
             bookings,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -92,9 +92,9 @@ export const getBookingById = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Booking not found' });
         }
 
-        res.status(200).json(booking);
+        return res.status(200).json(booking);
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -120,12 +120,12 @@ export const updateBookingStatus = async (req: AuthRequest, res: Response) => {
             );
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Booking status updated',
             booking,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -141,12 +141,12 @@ export const cancelBooking = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Booking not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Booking cancelled',
             booking,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -163,7 +163,7 @@ export const getBookingStats = async (req: AuthRequest, res: Response) => {
             { $group: { _id: null, total: { $sum: '$totalPrice' } } },
         ]);
 
-        res.status(200).json({
+        return res.status(200).json({
             total,
             pending,
             confirmed,
@@ -172,6 +172,6 @@ export const getBookingStats = async (req: AuthRequest, res: Response) => {
             revenue: revenue[0]?.total || 0,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };

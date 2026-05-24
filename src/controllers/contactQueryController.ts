@@ -29,13 +29,13 @@ export const createContactQuery = async (req: AuthRequest, res: Response) => {
         query.whatsappSent = whatsappSent;
         await query.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Query submitted successfully',
             query,
             whatsappNotification: whatsappSent,
         });
     } catch (error: any) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
@@ -54,7 +54,7 @@ export const getAllQueries = async (req: AuthRequest, res: Response) => {
 
         const total = await ContactQuery.countDocuments(filter);
 
-        res.status(200).json({
+        return res.status(200).json({
             count: queries.length,
             total,
             page,
@@ -62,7 +62,7 @@ export const getAllQueries = async (req: AuthRequest, res: Response) => {
             queries,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -80,9 +80,9 @@ export const getQueryById = async (req: AuthRequest, res: Response) => {
             await query.save();
         }
 
-        res.status(200).json(query);
+        return res.status(200).json(query);
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -106,14 +106,14 @@ export const replyToQuery = async (req: AuthRequest, res: Response) => {
         // Send reply via WhatsApp
         const message = `Hi ${query.name}, we received your query: "${query.subject}"\n\n Our reply:\n\n${adminReply}\n\nThank you for contacting SWAG Wheels!\n\nContact: +91 88278 14985`;
 
-        await whatsappService.sendMessage(query.phone, message);
+        await (whatsappService as any).sendMessage(query.phone, message);
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Reply sent successfully',
             query,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -125,11 +125,11 @@ export const deleteQuery = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Query not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Query deleted successfully',
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -140,13 +140,13 @@ export const getQueryStats = async (req: AuthRequest, res: Response) => {
         const read = await ContactQuery.countDocuments({ status: 'read' });
         const replied = await ContactQuery.countDocuments({ status: 'replied' });
 
-        res.status(200).json({
+        return res.status(200).json({
             total,
             new: newQueries,
             read,
             replied,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };

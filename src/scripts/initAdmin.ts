@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import { Admin } from '../models/admin';
+import { Admin } from '../models/Admin';
 
 const initializeDefaultAdmin = async () => {
     try {

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Admin } from '../models/admin';
+import { Admin } from '../models/Admin';
 import { generateToken } from '../utils/jwt';
 import { AuthRequest } from '../middleware/auth';
 
@@ -28,7 +28,7 @@ export const adminRegister = async (req: AuthRequest, res: Response) => {
 
         const token = generateToken(admin._id.toString(), admin.role);
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Admin registered successfully',
             token,
             admin: {
@@ -39,7 +39,7 @@ export const adminRegister = async (req: AuthRequest, res: Response) => {
             },
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -66,7 +66,7 @@ export const adminLogin = async (req: AuthRequest, res: Response) => {
 
         const token = generateToken(admin._id.toString(), admin.role);
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Login successful',
             token,
             admin: {
@@ -77,7 +77,7 @@ export const adminLogin = async (req: AuthRequest, res: Response) => {
             },
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -88,7 +88,7 @@ export const getAdminProfile = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Admin not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             admin: {
                 id: admin._id,
                 email: admin.email,
@@ -99,7 +99,7 @@ export const getAdminProfile = async (req: AuthRequest, res: Response) => {
             },
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -112,12 +112,12 @@ export const updateAdminProfile = async (req: AuthRequest, res: Response) => {
             { new: true, runValidators: true }
         );
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Profile updated successfully',
             admin,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -138,10 +138,10 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
         admin.password = newPassword;
         await admin.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Password changed successfully',
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };

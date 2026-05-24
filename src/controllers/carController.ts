@@ -19,12 +19,12 @@ export const getAllCars = async (req: AuthRequest, res: Response) => {
 
         const cars = await query;
 
-        res.status(200).json({
+        return res.status(200).json({
             count: cars.length,
             cars,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -35,9 +35,9 @@ export const getCarById = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Car not found' });
         }
 
-        res.status(200).json(car);
+        return res.status(200).json(car);
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -80,12 +80,12 @@ export const createCar = async (req: AuthRequest, res: Response) => {
             availability: true,
         });
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Car added successfully',
             car,
         });
     } catch (error: any) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
@@ -100,12 +100,12 @@ export const updateCar = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Car not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Car updated successfully',
             car,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -117,11 +117,11 @@ export const deleteCar = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: 'Car not found' });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Car deleted successfully',
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -136,12 +136,12 @@ export const toggleCarAvailability = async (req: AuthRequest, res: Response) => 
         car.availability = !car.availability;
         await car.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Car availability updated',
             car,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
 
@@ -169,11 +169,11 @@ export const searchCars = async (req: AuthRequest, res: Response) => {
 
         const cars = await Car.find(filter).sort({ rating: -1 });
 
-        res.status(200).json({
+        return res.status(200).json({
             count: cars.length,
             cars,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        return res.status(500).json({ message: 'Server error', error });
     }
 };
