@@ -2,7 +2,7 @@
   "name": "swag-wheels-backend",
   "version": "1.0.0",
   "description": "SWAG Wheels Car Rental Backend API",
-  "type": "module",
+  "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
     "dev": "node --import tsx src/index.ts",
