@@ -35,8 +35,27 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 // Connect to MongoDB
 connectDB();
 
+// Root
+app.get('/', (_req: Request, res: Response) => {
+    res.json({
+        status: 'OK',
+        message: 'SWAG Wheels Car Rental API',
+        version: '1.0.0',
+        endpoints: {
+            health: '/health',
+            cars: '/api/cars',
+            blogs: '/api/blogs',
+            bookings: '/api/bookings',
+            contact: '/api/contact',
+            testimonials: '/api/testimonials',
+            faqs: '/api/faqs',
+            admin: '/api/admin/login',
+        },
+    });
+});
+
 // Health check
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
     res.json({ status: 'OK', message: 'SWAG Wheels API is running' });
 });
 
