@@ -26,7 +26,7 @@ Booking Status: ${bookingDetails.status}
 We will confirm your booking shortly. Thank you for choosing SWAG Wheels! 🎉
 
 Team SWAG Wheels
-+91 88278 14985
++91 9289084361
     `.trim();
 
         return await this.sendMessage(phone, message);
@@ -41,7 +41,7 @@ Thank you for contacting SWAG Wheels. We received your ${queryType} query.
 
 Our team will get back to you within 24 hours. 
 
-For immediate assistance, call us at: +91 88278 14985
+For immediate assistance, call us at: +91 9289084361
 
 Best regards,
 Team SWAG Wheels 🚗
@@ -85,7 +85,7 @@ We will contact you shortly to confirm.
 
 Thank you for choosing SWAG Wheels! 🎉
 
-Contact: +91 88278 14985
+Contact: +91 9289084361
 Website: swagwheels.com
     `.trim();
 

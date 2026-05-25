@@ -104,7 +104,7 @@ export const replyToQuery = async (req: AuthRequest, res: Response) => {
         }
 
         // Send reply via WhatsApp
-        const message = `Hi ${query.name}, we received your query: "${query.subject}"\n\n Our reply:\n\n${adminReply}\n\nThank you for contacting SWAG Wheels!\n\nContact: +91 88278 14985`;
+        const message = `Hi ${query.name}, we received your query: "${query.subject}"\n\n Our reply:\n\n${adminReply}\n\nThank you for contacting SWAG Wheels!\n\nContact: +91 9289084361`;
 
         await (whatsappService as any).sendMessage(query.phone, message);
 
